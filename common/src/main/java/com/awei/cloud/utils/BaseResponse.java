@@ -1,10 +1,17 @@
 package com.awei.cloud.utils;
 
 
-
+/**
+ * 封装全局返回格式
+ *
+ * @param <T>
+ */
 public class BaseResponse<T> {
 
-    private boolean  success;
+    /**
+     * 判断是否成功
+     */
+    private boolean success;
 
     /**
      * 状态码
@@ -13,6 +20,9 @@ public class BaseResponse<T> {
 
     private String msg;
 
+    /**
+     * 返回的数据
+     */
     private T data;
 
     public boolean isSuccess() {
@@ -47,13 +57,14 @@ public class BaseResponse<T> {
         this.data = data;
     }
 
-    public static <T> BaseResponse<T>  success(String msg){
+    public static <T> BaseResponse<T> success(String msg) {
         BaseResponse<T> response = new BaseResponse<T>();
         response.setSuccess(true);
         response.setMsg(msg);
         response.setData(null);
         return response;
     }
+
     public static <T> BaseResponse<T> success(T obj, String msg) {
         BaseResponse<T> response = new BaseResponse<T>();
         response.setSuccess(true);
