@@ -1,6 +1,8 @@
 package com.awei.cloud.controller;
 
 import com.awei.cloud.entity.User;
+import com.awei.cloud.request.DeleteOneRequest;
+import com.awei.cloud.request.DeleteUserBizRequest;
 import com.awei.cloud.request.InsertUserBizRequest;
 import com.awei.cloud.service.UserService;
 import com.awei.cloud.utils.BaseResponse;
@@ -34,11 +36,21 @@ public class UserController {
     }
 
     @PostMapping("/list")
-    public List<User> listUser(){
-
+    public List<User> listUser() {
         List<User> users = userService.listUser();
 
-
         return users;
+    }
+
+    @PostMapping("/delete")
+    public void deleteUser(@RequestBody DeleteUserBizRequest bizRequest) {
+        userService.deleteUser(bizRequest);
+    }
+
+    @PostMapping("/delete_one")
+    public void deleteOne(@RequestBody DeleteOneRequest request) {
+        userService.delete(request);
+
+
     }
 }

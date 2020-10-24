@@ -3,13 +3,17 @@ package com.awei.cloud.service.impl;
 import com.awei.cloud.Enum.UserRole;
 import com.awei.cloud.dao.UserDao;
 import com.awei.cloud.entity.User;
+import com.awei.cloud.request.DeleteOneRequest;
+import com.awei.cloud.request.DeleteUserBizRequest;
 import com.awei.cloud.request.InsertUserBizRequest;
 import com.awei.cloud.service.UserService;
 import com.awei.cloud.utils.BaseResponse;
 import com.awei.cloud.utils.UUIDUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -41,5 +45,20 @@ public class UserServiceImpl implements UserService {
     public List<User> listUser() {
         List<User> list = userDao.ListUser();
         return list;
+    }
+
+    @Override
+
+    public void deleteUser(DeleteUserBizRequest bizRequest) {
+
+        userDao.deleteUser(bizRequest.getIds());
+
+    }
+
+    @Override
+    public void delete(DeleteOneRequest request) {
+        String uid = request.getUid();
+
+        userDao.deleteSingle(uid);
     }
 }
