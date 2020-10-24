@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.awei.cloud.dao.UserDao">
+    <resultMap id="userMap" type="com.awei.cloud.entity.User">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="user_name" property="userName"/>
+        <result column="user_pass" property="passWord"/>
+        <result column="role" property="role"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modified" property="gmtModified"/>
+    </resultMap>
+
+    <insert id="insertUser" parameterType="com.awei.cloud.entity.User">
+        insert  into student_user
+            (user_id,
+            user_name,
+            user_pass,
+            role,
+            gmt_create,
+            gmt_modified)
+        value
+             (#{userId},
+             #{userName},
+             #{passWord},
+             #{role},
+             now(),
+             now())
+
+    </insert>
+    <select id="ListUser"  resultMap="userMap">
+
+        select  * from student_user
+    </select>
+</mapper>
