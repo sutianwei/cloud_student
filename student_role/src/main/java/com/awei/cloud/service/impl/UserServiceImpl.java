@@ -12,6 +12,7 @@ import com.awei.cloud.utils.RedisUtil;
 import com.awei.cloud.utils.UUIDUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.xml.bind.annotation.W3CDomHandler;
 import java.util.List;
@@ -27,6 +28,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private RedisUtil redisUtil;
 
+    private TransactionTemplate  template;
+
     @Override
     public void insertUser(InsertUserBizRequest bizRequest) {
         User user = new User();
@@ -38,9 +41,11 @@ public class UserServiceImpl implements UserService {
             user.setRole(UserRole.TEACHER.getRole());
         } else if ("S".equals(bizRequest.getRole())) {
             user.setRole(UserRole.STUDNET.getRole());
-        } else {
+        } else  if ("M" .equals(bizRequest.getRole())){
             user.setRole(UserRole.MANAGER.getRole()
             );
+        }else {
+            return;
         }
         userDao.insertUser(user);
         //教师信息放在redis缓存
