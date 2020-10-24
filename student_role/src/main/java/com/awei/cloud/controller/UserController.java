@@ -4,6 +4,7 @@ import com.awei.cloud.entity.User;
 import com.awei.cloud.request.DeleteUserBizRequest;
 import com.awei.cloud.request.InsertUserBizRequest;
 import com.awei.cloud.request.QueryUserRequest;
+import com.awei.cloud.request.UpdateUserRequest;
 import com.awei.cloud.service.UserService;
 import com.awei.cloud.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,11 @@ public class UserController {
         User user = userService.queryUser(request);
         return user;
 
+    }
+
+    @PostMapping("/update")
+    public void update(@RequestBody UpdateUserRequest request) {
+        userService.update(request);
     }
 
 }

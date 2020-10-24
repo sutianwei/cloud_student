@@ -6,6 +6,7 @@ import com.awei.cloud.entity.User;
 import com.awei.cloud.request.DeleteUserBizRequest;
 import com.awei.cloud.request.InsertUserBizRequest;
 import com.awei.cloud.request.QueryUserRequest;
+import com.awei.cloud.request.UpdateUserRequest;
 import com.awei.cloud.service.UserService;
 import com.awei.cloud.utils.RedisUtil;
 import com.awei.cloud.utils.UUIDUtils;
@@ -74,5 +75,19 @@ public class UserServiceImpl implements UserService {
             User user = userDao.queryUser(request.getUid());
             return user;
         }
+    }
+
+    @Override
+    public void update(UpdateUserRequest request) {
+        redisUtil.del(USER_CACHE + "T" +request.getUserId()+ request.getUserId());
+
+        User user = new User();
+        user.setRole(request.getRole());
+        user.setPassWord(request.getPassWord());
+        user.setUserId(request.getUserId());
+        user.setUserName(request.getUserName());
+        userDao.update(request.getUserId(),user);
+
+        redisUtil.set(USER_CACHE+request.getRole()+request.getUserId(),user);
     }
 }

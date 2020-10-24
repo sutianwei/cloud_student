@@ -18,4 +18,6 @@ public interface UserDao {
 
     User queryUser(@Param("userId") String userId);
 
+    void update(@Param("ids") String ids, @Param("entity")  User user);
+
 }

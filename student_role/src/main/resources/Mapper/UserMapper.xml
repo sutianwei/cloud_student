@@ -29,14 +29,14 @@
              now())
 
     </insert>
-    <select id="ListUser"  resultMap="userMap">
+    <select id="ListUser" resultMap="userMap">
 
         select  * from student_user
     </select>
 
 
-    <delete id="deleteUser"  parameterType="com.awei.cloud.entity.User">
-        delete  from student_user where user_id
+    <delete id="deleteUser" parameterType="com.awei.cloud.entity.User">
+        delete from student_user where user_id
         in
         <foreach collection="userIds" item="userIds" open="(" close=")" separator=",">
             #{userIds}
@@ -44,12 +44,23 @@
 
 
     </delete>
-    <delete id="deleteSingle"  parameterType="com.awei.cloud.entity.User">
+    <delete id="deleteSingle" parameterType="com.awei.cloud.entity.User">
               delete  from student_user where user_id=#{ids}
     </delete>
 
-    <select id="queryUser"  resultMap="userMap">
+    <select id="queryUser" resultMap="userMap">
         select  * from student_user where user_id = #{userId}
 
     </select>
+    <update id="update" parameterType="com.awei.cloud.entity.User">
+        update student_user set
+
+            user_name=#{entity.userName},
+            user_pass=#{entity.passWord},
+            role=#{entity.role},
+            gmt_create=now(),
+            gmt_modified=now()
+            where  user_id=#{ids}
+
+    </update>
 </mapper>
