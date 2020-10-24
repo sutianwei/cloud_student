@@ -3,25 +3,26 @@ package com.awei.cloud.service.impl;
 import com.awei.cloud.Enum.UserRole;
 import com.awei.cloud.dao.UserDao;
 import com.awei.cloud.entity.User;
-import com.awei.cloud.request.DeleteOneRequest;
 import com.awei.cloud.request.DeleteUserBizRequest;
 import com.awei.cloud.request.InsertUserBizRequest;
 import com.awei.cloud.service.UserService;
-import com.awei.cloud.utils.BaseResponse;
+import com.awei.cloud.utils.RedisUtil;
 import com.awei.cloud.utils.UUIDUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
 
+    private static final String USER_CACHE="USER_CACHE";
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private RedisUtil redisUtil;
 
     @Override
     public void insertUser(InsertUserBizRequest bizRequest) {
@@ -29,6 +30,7 @@ public class UserServiceImpl implements UserService {
         user.setUserId(UUIDUtils.getUUID());
         user.setUserName(bizRequest.getUserName());
         user.setPassWord(bizRequest.getPassWord());
+        //判断用户角色
         if ("T".equals(bizRequest.getRole())) {
             user.setRole(UserRole.TEACHER.getRole());
         } else if ("S".equals(bizRequest.getRole())) {
@@ -38,7 +40,10 @@ public class UserServiceImpl implements UserService {
             );
         }
         userDao.insertUser(user);
-
+        //教师信息放在redis缓存
+        if ("T".equals(user.getRole())) {
+            redisUtil.set(USER_CACHE + user.getRole() + user.getUserId(), user);
+        }
     }
 
     @Override
@@ -55,10 +60,4 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    @Override
-    public void delete(DeleteOneRequest request) {
-        String uid = request.getUid();
-
-        userDao.deleteSingle(uid);
-    }
 }
