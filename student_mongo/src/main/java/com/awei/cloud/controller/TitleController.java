@@ -2,9 +2,10 @@ package com.awei.cloud.controller;
 
 import com.awei.cloud.entity.TitleEntity;
 import com.awei.cloud.request.DeleteRequest;
+import com.awei.cloud.request.InsertTitleRequest;
 import com.awei.cloud.request.ListRequest;
+import com.awei.cloud.request.UpdateRequest;
 import com.awei.cloud.service.TitleService;
-import org.bouncycastle.jcajce.provider.symmetric.TEA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,8 +18,8 @@ public class TitleController {
     private TitleService service;
 
     @PostMapping("/insert")
-    public void insert(@RequestBody TitleEntity entity) {
-        service.insert(entity);
+    public void insert(@RequestBody InsertTitleRequest request) {
+        service.insert(request);
     }
 
     @PostMapping("/delete")
@@ -31,4 +32,12 @@ public class TitleController {
         TitleEntity entity = service.listTitle(request.getId());
         return entity;
     }
+
+    @PostMapping("/update")
+    public void update(@RequestBody UpdateRequest request) {
+        service.update(request);
+
+    }
+
+
 }

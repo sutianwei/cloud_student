@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -16,6 +17,7 @@ public class TitleDao {
     private MongoTemplate mongoTemplate;
 
     public void insertTitle(TitleEntity entity) {
+        entity.setId(UUIDUtils.getUUID());
         mongoTemplate.save(entity);
     }
 
@@ -25,7 +27,14 @@ public class TitleDao {
 
     public void deleteTitle(String tid) {
         Query query = new Query(Criteria.where("id").is(tid));
-        mongoTemplate.remove(query,TitleEntity.class);
+        mongoTemplate.remove(query, TitleEntity.class);
+    }
+
+    public void update(TitleEntity entity) {
+        Query query = new Query(Criteria.where("id").is(entity.getId()));
+        Update update = new Update().set("topic", entity.getTopic()).set("item", entity.getItem());
+        mongoTemplate.updateFirst(query, update, TitleEntity.class);
+
     }
 
 
