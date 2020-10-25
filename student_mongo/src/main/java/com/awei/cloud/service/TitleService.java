@@ -12,5 +12,6 @@ public interface TitleService {
     void delete(String tid);
 
     TitleEntity listTitle(@Param("id") String id);
+
     void update(UpdateRequest request);
 }

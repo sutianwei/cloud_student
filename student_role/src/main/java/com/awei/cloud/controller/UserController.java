@@ -22,16 +22,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private TopicService topicService;
-
-
-    @PostMapping("/list_topic")
-    public BaseResponse list(@RequestBody ListRequest request) {
-        BaseResponse response = new BaseResponse();
-        response.setData(topicService.listTopic(request));
-        return response;
-    }
 
 
     /**
