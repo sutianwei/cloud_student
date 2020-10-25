@@ -5,8 +5,8 @@ import com.awei.cloud.request.DeleteRequest;
 import com.awei.cloud.request.InsertTitleRequest;
 import com.awei.cloud.request.ListRequest;
 import com.awei.cloud.request.UpdateRequest;
+import com.awei.cloud.response.ListTopicResponse;
 import com.awei.cloud.service.TitleService;
-import com.awei.cloud.utils.BaseResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,11 +46,13 @@ public class TitleController {
      * @return
      */
     @PostMapping("/list")
-    public BaseResponse  list(@RequestBody ListRequest request) {
+    public ListTopicResponse list(@RequestBody ListRequest request) {
 
         TitleEntity entity = service.listTitle(request.getId());
-        BaseResponse  response = new BaseResponse();
-        response.setData(entity);
+        ListTopicResponse  response = new ListTopicResponse();
+        response.setItem(entity.getItem());
+        response.setId(entity.getId());
+        response.setTopic(entity.getTopic());
         return response;
     }
 

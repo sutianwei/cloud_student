@@ -1,12 +1,10 @@
 package com.awei.cloud.controller;
 
 
-import com.awei.cloud.request.DeleteTopicRequest;
-import com.awei.cloud.request.InsertTopicRequest;
-import com.awei.cloud.request.ListRequest;
-import com.awei.cloud.request.UpdateTopicRequest;
+import com.awei.cloud.request.*;
+import com.awei.cloud.response.ListTopicResponse;
+import com.awei.cloud.service.ReplyService;
 import com.awei.cloud.service.TopicService;
-import com.awei.cloud.utils.BaseResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,6 +18,9 @@ public class TopicController {
     @Autowired
     private TopicService topicService;
 
+    @Autowired
+    private ReplyService replyService;
+
 
     /**
      * 调用题库系统查询题目
@@ -28,15 +29,17 @@ public class TopicController {
      * @return BaseResponse
      */
     @PostMapping("/list_topic")
-    public BaseResponse list(@RequestBody ListRequest request) {
-        BaseResponse response = new BaseResponse();
-        response.setData(topicService.listTopic(request));
-        response.setSuccess(true);
+    public ListTopicResponse list(@RequestBody ListRequest request) {
+
+        ListTopicResponse response = topicService.listTopic(request);
+        System.out.println(response.getItem());
         return response;
+
     }
 
     /**
      * 添加题目
+     *
      * @param request
      */
     @PostMapping("/insert_topic")
@@ -46,6 +49,7 @@ public class TopicController {
 
     /**
      * 删除题目
+     *
      * @param request
      */
     @PostMapping("delete_topic")
@@ -56,11 +60,18 @@ public class TopicController {
 
     /**
      * 更新题目
+     *
      * @param request
      */
     @PostMapping("/update_topic")
     public void update(@RequestBody UpdateTopicRequest request) {
         topicService.update(request);
+    }
+
+    @PostMapping("/reply")
+    public void reply(@RequestBody ReplyRequest replyRequest) {
+        replyService.replyTopic(replyRequest);
+
     }
 
 }
