@@ -1,11 +1,10 @@
 package com.awei.cloud.controller;
 
 import com.awei.cloud.entity.User;
-import com.awei.cloud.request.DeleteUserBizRequest;
-import com.awei.cloud.request.InsertUserBizRequest;
-import com.awei.cloud.request.QueryUserRequest;
-import com.awei.cloud.request.UpdateUserRequest;
+import com.awei.cloud.request.*;
+import com.awei.cloud.service.TopicService;
 import com.awei.cloud.service.UserService;
+import com.awei.cloud.utils.BaseResponse;
 import com.awei.cloud.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +21,17 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private TopicService topicService;
+
+
+    @PostMapping("/list_topic")
+    public BaseResponse list(@RequestBody ListRequest request) {
+        BaseResponse response = new BaseResponse();
+        response.setData(topicService.listTopic(request));
+        return response;
+    }
 
 
     /**
