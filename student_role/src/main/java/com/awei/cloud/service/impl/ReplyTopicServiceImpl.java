@@ -6,8 +6,9 @@ import com.awei.cloud.response.ListTopicResponse;
 import com.awei.cloud.service.ReplyService;
 import com.awei.cloud.service.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
 
 @Service
 public class ReplyTopicServiceImpl implements ReplyService {
@@ -22,6 +23,7 @@ public class ReplyTopicServiceImpl implements ReplyService {
 
         ListRequest  request = new ListRequest();
         request.setId(replyRequest.getId());
+
 
         ListTopicResponse response = service.listTopic(request);
         if (response.getItem() .equals(replyRequest.getItem())){
