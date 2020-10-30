@@ -26,7 +26,7 @@ public class ReplyTopicServiceImpl implements ReplyService {
         request.setId(replyRequest.getId());
         ListTopicResponse response = service.listTopic(request);
         if (response.getItem() .equals(replyRequest.getItem())){
-            redisUtil.set("苏天伟做对了这道题",replyRequest.getId());
+            redisUtil.set("阿伟做对了"+response.getTopic(),replyRequest.getId(),60*60*24);
             System.out.println("6666");
         }
 
