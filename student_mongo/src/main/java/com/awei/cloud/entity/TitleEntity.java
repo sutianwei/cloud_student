@@ -4,13 +4,20 @@ import org.springframework.data.annotation.Id;
 
 import java.io.Serializable;
 
-public class TitleEntity {
 
+public class TitleEntity implements Serializable {
+
+    private static final long serialVersionUID = 729918189840157911L;
     @Id
     private String id;
 
+    /**
+     * 题目
+     */
     private String topic;
-
+    /**
+     * 答案
+     */
     private String item;
 
     public String getId() {

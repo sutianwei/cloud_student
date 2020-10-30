@@ -6,14 +6,17 @@ import com.awei.cloud.request.InsertTopicRequest;
 import com.awei.cloud.request.ListRequest;
 import com.awei.cloud.request.UpdateTopicRequest;
 import com.awei.cloud.response.ListTopicResponse;
-import com.awei.cloud.utils.BaseResponse;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @FeignClient("student-mongo")
 public interface TopicService {
 
+    /**
+     * 获取题目列表
+     * @param request
+     * @return
+     */
     @RequestMapping("/list")
     ListTopicResponse listTopic(ListRequest request);
 

@@ -55,7 +55,6 @@ public class TopicController {
     @PostMapping("delete_topic")
     public void delete(@RequestBody DeleteTopicRequest request) {
         topicService.deleteTopic(request);
-
     }
 
     /**
@@ -71,7 +70,6 @@ public class TopicController {
     @PostMapping("/reply")
     public void reply(@RequestBody ReplyRequest replyRequest) {
         replyService.replyTopic(replyRequest);
-
     }
 
 }

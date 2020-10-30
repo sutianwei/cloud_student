@@ -23,7 +23,6 @@ public class TitleDao {
         entity.setId(UUIDUtils.getUUID());
         mongoTemplate.save(entity);
     }
-
     /**
      * 查询题目
      */
@@ -38,7 +37,6 @@ public class TitleDao {
         Query query = new Query(Criteria.where("id").is(tid));
         mongoTemplate.remove(query, TitleEntity.class);
     }
-
     /**
      * 更新题目
      */
@@ -46,7 +44,6 @@ public class TitleDao {
         Query query = new Query(Criteria.where("id").is(entity.getId()));
         Update update = new Update().set("topic", entity.getTopic()).set("item", entity.getItem());
         mongoTemplate.updateFirst(query, update, TitleEntity.class);
-
     }
 
 

@@ -35,7 +35,7 @@ public class TitleServiceImpl implements TitleService {
 
     @Override
     public void update(UpdateRequest request) {
-        TitleEntity  entity =new TitleEntity();
+        TitleEntity entity = new TitleEntity();
         entity.setId(request.getId());
         entity.setTopic(request.getTopic());
         entity.setItem(request.getItem());

@@ -5,17 +5,18 @@ import com.awei.cloud.request.ReplyRequest;
 import com.awei.cloud.response.ListTopicResponse;
 import com.awei.cloud.service.ReplyService;
 import com.awei.cloud.service.TopicService;
+import com.awei.cloud.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
 
 @Service
 public class ReplyTopicServiceImpl implements ReplyService {
 
-
     @Autowired
     private TopicService service;
+
+    @Autowired
+    private RedisUtil redisUtil;
 
 
     @Override
@@ -23,10 +24,9 @@ public class ReplyTopicServiceImpl implements ReplyService {
 
         ListRequest  request = new ListRequest();
         request.setId(replyRequest.getId());
-
-
         ListTopicResponse response = service.listTopic(request);
         if (response.getItem() .equals(replyRequest.getItem())){
+            redisUtil.set("苏天伟做对了这道题",replyRequest.getId());
             System.out.println("6666");
         }
 
