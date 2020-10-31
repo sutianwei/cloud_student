@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.awei.cloud.dao.UserRankDao">
+    <resultMap id="userRankMap" type="com.awei.cloud.entity.UserRankEntity">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="user_name" property="userName"/>
+        <result column="user_rank" property="userRank"/>
+        <result column="role" property="role"/>
+    </resultMap>
+    <insert id="insertRank" parameterType="com.awei.cloud.entity.UserRankEntity">
+        insert  into user_rank(
+       user_id,
+       user_name,
+       user_rank
+        )
+        values (#{userId},#{userName},#{userRank})
+
+    </insert>
+    <select id="getRank"  resultMap="userRankMap">
+        select user_rank
+        from user_rank
+        where  user_id = #{userid}
+
+
+    </select>
+</mapper>
