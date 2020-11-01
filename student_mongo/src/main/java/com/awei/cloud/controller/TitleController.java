@@ -1,6 +1,6 @@
 package com.awei.cloud.controller;
 
-import com.awei.cloud.entity.TitleEntity;
+import com.awei.cloud.entity.Title;
 import com.awei.cloud.request.DeleteRequest;
 import com.awei.cloud.request.InsertTitleRequest;
 import com.awei.cloud.request.ListRequest;
@@ -48,7 +48,7 @@ public class TitleController {
     @PostMapping("/list")
     public ListTopicResponse list(@RequestBody ListRequest request) {
 
-        TitleEntity entity = service.listTitle(request.getId());
+        Title entity = service.listTitle(request.getId());
         ListTopicResponse  response = new ListTopicResponse();
         response.setItem(entity.getItem());
         response.setId(entity.getId());

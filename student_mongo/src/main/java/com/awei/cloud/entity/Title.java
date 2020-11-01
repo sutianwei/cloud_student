@@ -1,11 +1,12 @@
 package com.awei.cloud.entity;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 
-
-public class TitleEntity implements Serializable {
+@Document(collation = "student_title")
+public class Title implements Serializable {
 
     private static final long serialVersionUID = 729918189840157911L;
     @Id

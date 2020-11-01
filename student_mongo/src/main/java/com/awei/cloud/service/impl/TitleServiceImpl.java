@@ -1,7 +1,7 @@
 package com.awei.cloud.service.impl;
 
 import com.awei.cloud.dao.TitleDao;
-import com.awei.cloud.entity.TitleEntity;
+import com.awei.cloud.entity.Title;
 import com.awei.cloud.request.InsertTitleRequest;
 import com.awei.cloud.request.UpdateRequest;
 import com.awei.cloud.service.TitleService;
@@ -16,7 +16,7 @@ public class TitleServiceImpl implements TitleService {
 
     @Override
     public void insert(InsertTitleRequest request) {
-        TitleEntity entity = new TitleEntity();
+        Title entity = new Title();
         entity.setItem(request.getItem());
         entity.setTopic(request.getTopic());
         dao.insertTitle(entity);
@@ -28,14 +28,14 @@ public class TitleServiceImpl implements TitleService {
     }
 
     @Override
-    public TitleEntity listTitle(String id) {
-        TitleEntity entity = dao.listTitle(id);
+    public Title listTitle(String id) {
+        Title entity = dao.listTitle(id);
         return entity;
     }
 
     @Override
     public void update(UpdateRequest request) {
-        TitleEntity entity = new TitleEntity();
+        Title entity = new Title();
         entity.setId(request.getId());
         entity.setTopic(request.getTopic());
         entity.setItem(request.getItem());

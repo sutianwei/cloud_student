@@ -33,7 +33,6 @@ public class ReplyTopicServiceImpl implements ReplyService {
         ListTopicResponse response = service.listTopic(request);
         UserRankEntity rank = rankDao.getRank(replyRequest.getUserId());
 
-
         Integer sp = rank.getUserRank();
         if (response.getItem().equals(replyRequest.getItem())) {
             UserRankEntity rankEntity = new UserRankEntity();
