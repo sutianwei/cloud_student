@@ -11,4 +11,5 @@ public interface UserRankDao {
     void insertRank(UserRankEntity entity);
 
     UserRankEntity  getRank(@Param("userId")  String userId);
+    void updateRank(@Param("userId")  String userId,@Param("rank") Integer rank);
 }

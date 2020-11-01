@@ -25,4 +25,12 @@
 
 
     </select>
+
+    <update id="updateRank"  parameterType="com.awei.cloud.entity.UserRankEntity">
+        update  user_rank
+        set  user_rank = #{rank}
+        where  user_id = #{userId}
+
+
+    </update>
 </mapper>

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ReplyTopicServiceImpl implements ReplyService {
+    private final static String RANK = "RANK";
 
     @Autowired
     private TopicService service;
@@ -31,16 +32,19 @@ public class ReplyTopicServiceImpl implements ReplyService {
         request.setId(replyRequest.getId());
         ListTopicResponse response = service.listTopic(request);
         UserRankEntity rank = rankDao.getRank(replyRequest.getUserId());
+
+
         Integer sp = rank.getUserRank();
         if (response.getItem().equals(replyRequest.getItem())) {
             UserRankEntity rankEntity = new UserRankEntity();
             rankEntity.setUserId(replyRequest.getUserId());
             rankEntity.setUserName(replyRequest.getUserName());
-        sp++;
+            sp++;
             rankEntity.setUserRank(sp);
-            rankDao.insertRank(rankEntity);
-            redisUtil.set("阿伟做对了" + response.getTopic(), replyRequest.getId(), 60 * 60 * 24);
-            System.out.println("6666");
+//            rankDao.insertRank(rankEntity);
+            rankDao.updateRank(replyRequest.getUserId(), sp
+            );
+            redisUtil.set(RANK+replyRequest.getUserName() , sp, 60 * 60 * 24);
         }
 
     }
