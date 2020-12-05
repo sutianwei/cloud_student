@@ -42,7 +42,7 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder().title("阿伟专用接口测试")
                 .description("人员管理系统接口测试")
-                 .termsOfServiceUrl("http://127.0.0.1:8080/doc.html")
+                 .termsOfServiceUrl("http://127.0.0.1:8089/doc.html")
                 .version("1.0").build();
     }
 }
