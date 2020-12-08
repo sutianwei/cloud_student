@@ -9,11 +9,20 @@ import com.awei.cloud.service.ReplyService;
 import com.awei.cloud.service.TopicService;
 import com.awei.cloud.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.DefaultTypedTuple;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Service;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class ReplyTopicServiceImpl implements ReplyService {
     private final static String RANK = "RANK";
+
+    @Autowired
+    private StringRedisTemplate redisTemplate;
 
     @Autowired
     private TopicService service;
@@ -24,7 +33,7 @@ public class ReplyTopicServiceImpl implements ReplyService {
     @Autowired
     private UserRankDao rankDao;
 
-
+    public static final String SCORE_RANK = "score_rank";
     @Override
     public void replyTopic(ReplyRequest replyRequest) {
 
@@ -46,5 +55,12 @@ public class ReplyTopicServiceImpl implements ReplyService {
             redisUtil.set(RANK+replyRequest.getUserName() , sp, 60 * 60 * 24);
         }
 
+        Set<ZSetOperations.TypedTuple<String>> tuples = new HashSet<>();
+//        DefaultTypedTuple<String> tuple = new DefaultTypedTuple<>(replyRequest.getUserName() + replyRequest.getItem(), 1D );
+//
+//        tuples.add(tuple);
+////        Long num = redisTemplate.opsForZSet().add(SCORE_RANK, tuples);
+//        Long num = redisTemplate.opsForZSet().add(SCORE_RANK, tuples);
+        redisTemplate.opsForZSet().incrementScore(SCORE_RANK, replyRequest.getUserName(), 1);
     }
 }

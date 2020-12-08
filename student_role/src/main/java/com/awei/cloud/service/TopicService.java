@@ -7,6 +7,7 @@ import com.awei.cloud.request.ListRequest;
 import com.awei.cloud.request.UpdateTopicRequest;
 import com.awei.cloud.response.ListTopicResponse;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @FeignClient("student-mongo")
@@ -17,15 +18,15 @@ public interface TopicService {
      * @param request
      * @return
      */
-    @RequestMapping("/list")
+    @PostMapping("/list")
     ListTopicResponse listTopic(ListRequest request);
 
-    @RequestMapping("insert")
+    @PostMapping("insert")
     void insertTopic(InsertTopicRequest request);
 
-    @RequestMapping("/delete")
+    @PostMapping("/delete")
     void deleteTopic(DeleteTopicRequest request);
 
-    @RequestMapping("/update")
+    @PostMapping("/update")
     void update(UpdateTopicRequest request);
 }
