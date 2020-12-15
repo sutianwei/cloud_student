@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class ReplyTopicServiceImpl implements ReplyService {
@@ -34,6 +35,7 @@ public class ReplyTopicServiceImpl implements ReplyService {
     private UserRankDao rankDao;
 
     public static final String SCORE_RANK = "score_rank";
+
     @Override
     public void replyTopic(ReplyRequest replyRequest) {
 
@@ -52,7 +54,7 @@ public class ReplyTopicServiceImpl implements ReplyService {
 //            rankDao.insertRank(rankEntity);
             rankDao.updateRank(replyRequest.getUserId(), sp
             );
-            redisUtil.set(RANK+replyRequest.getUserName() , sp, 60 * 60 * 24);
+            redisUtil.set(RANK + replyRequest.getUserName(), sp, 60 * 60 * 24);
         }
 
         Set<ZSetOperations.TypedTuple<String>> tuples = new HashSet<>();
@@ -62,5 +64,6 @@ public class ReplyTopicServiceImpl implements ReplyService {
 ////        Long num = redisTemplate.opsForZSet().add(SCORE_RANK, tuples);
 //        Long num = redisTemplate.opsForZSet().add(SCORE_RANK, tuples);
         redisTemplate.opsForZSet().incrementScore(SCORE_RANK, replyRequest.getUserName(), 1);
+        redisTemplate.expire(SCORE_RANK, 20, TimeUnit.SECONDS);
     }
 }
