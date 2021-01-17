@@ -1,6 +1,7 @@
 package com.awei.cloud.controller;
 
 import com.alibaba.fastjson.JSON;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.DefaultTypedTuple;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -12,6 +13,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @RestController
+@Api("排名")
 public class rankController {
     @Autowired
     private StringRedisTemplate redisTemplate;

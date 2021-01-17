@@ -5,6 +5,7 @@ import com.awei.cloud.request.*;
 import com.awei.cloud.response.ListTopicResponse;
 import com.awei.cloud.service.ReplyService;
 import com.awei.cloud.service.TopicService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping("topic")
 @RestController
+@Api("学生题目模块")
 public class TopicController {
 
     @Autowired
@@ -29,7 +31,7 @@ public class TopicController {
      * @return BaseResponse
      */
     @PostMapping("/list_topic")
-    public ListTopicResponse list(@RequestBody ListRequest request) {
+    public ListTopicResponse listTopic(@RequestBody ListRequest request) {
 
         ListTopicResponse response = topicService.listTopic(request);
         System.out.println(response.getItem());
@@ -43,7 +45,7 @@ public class TopicController {
      * @param request
      */
     @PostMapping("/insert_topic")
-    public void insert(@RequestBody InsertTopicRequest request) {
+    public void insertTopic(@RequestBody InsertTopicRequest request) {
         topicService.insertTopic(request);
     }
 
@@ -53,7 +55,7 @@ public class TopicController {
      * @param request
      */
     @PostMapping("delete_topic")
-    public void delete(@RequestBody DeleteTopicRequest request) {
+    public void deleteTopic(@RequestBody DeleteTopicRequest request) {
         topicService.deleteTopic(request);
     }
 
@@ -63,12 +65,12 @@ public class TopicController {
      * @param request
      */
     @PostMapping("/update_topic")
-    public void update(@RequestBody UpdateTopicRequest request) {
+    public void updateTopic(@RequestBody UpdateTopicRequest request) {
         topicService.update(request);
     }
 
     @PostMapping("/reply")
-    public void reply(@RequestBody ReplyRequest replyRequest) {
+    public void replyTopic(@RequestBody ReplyRequest replyRequest) {
         replyService.replyTopic(replyRequest);
     }
 

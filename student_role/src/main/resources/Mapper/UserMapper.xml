@@ -45,7 +45,7 @@
 
     </delete>
     <delete id="deleteSingle" parameterType="com.awei.cloud.entity.User">
-              delete  from student_user where user_id=#{ids}
+      delete  from student_user where user_id=#{ids}
     </delete>
 
     <select id="queryUser" resultMap="userMap">
@@ -54,7 +54,6 @@
     </select>
     <update id="update" parameterType="com.awei.cloud.entity.User">
         update student_user set
-
             user_name=#{entity.userName},
             user_pass=#{entity.passWord},
             role=#{entity.role},
