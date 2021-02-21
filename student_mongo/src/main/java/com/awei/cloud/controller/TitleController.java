@@ -49,7 +49,7 @@ public class TitleController {
     public ListTopicResponse list(@RequestBody ListRequest request) {
 
         Title entity = service.listTitle(request.getId());
-        ListTopicResponse  response = new ListTopicResponse();
+        ListTopicResponse response = new ListTopicResponse();
         response.setItem(entity.getItem());
         response.setId(entity.getId());
         response.setTopic(entity.getTopic());
