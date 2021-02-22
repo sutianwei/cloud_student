@@ -1,5 +1,7 @@
 package com.awei.cloud.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -9,13 +11,19 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = 7313908511206187571L;
 
+
     private int id;
 
     private String userId;
+
     private String userName;
+
     private String passWord;
+
     private String role;
+
     private Date gmtCreate;
+
     private Date gmtModified;
 
     public String getUserId() {
